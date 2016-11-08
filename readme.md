@@ -1,4 +1,5 @@
-# Front-Buddy
+![alt Front-Buddy](https://s22.postimg.org/njccshcmp/Captura_de_Tela_2016_11_08_a_s_21_55_50.png)
+
 > A frontend build automator tool
 
 No matter the structure of your project, front-buddy will help you!
