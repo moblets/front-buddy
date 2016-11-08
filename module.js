@@ -28,6 +28,7 @@ module.exports = class Module {
     this.version = options.version;
     this.name = this.getName();
   }
+
   dev(_options, callback) {
     // watch module
     this.watch(_options, () => {
@@ -44,6 +45,9 @@ module.exports = class Module {
     const options = extend(this.options, _options || {});
     // prepare files to watch
     options.watch = options.watch || [];
+    if (typeof options.index !== 'undefined') {
+      options.watch.push(options.index);
+    }
     options.watch.push(`${this.getFolder()}**/**`);
     // watch files
     gulp.watch(options.watch, (files) => {
@@ -85,26 +89,18 @@ module.exports = class Module {
       deferred.resolve({ error: true, message: `Error building Moblet Module ${this.name}` });
     });
     stream.on('end', () => {
-      deferred.resolve({ success: true, message: `Moblet Module ${this.name} builded` });
+      deferred.resolve({ success: true, message: `Module ${this.name} builded` });
     });
     // return promise
     return deferred.promise;
   }
   // return module folder directory
   getFolder() {
-    const splited = this.location.split(`/${this.name}.js`);
-    return `${splited[0]}/`;
+    return `${path.dirname(this.location)}/`;
   }
   // return module name
   getName() {
-    let name;
-    const splited = this.location.split('.js');
-    if (splited[0].trim() === '') {
-      name = '';
-    } else {
-      const urlSplited = splited[0].trim().split('/');
-      name = urlSplited[urlSplited.length - 1];
-    }
-    return name;
+    const extension = path.extname(this.location);
+    return path.basename(this.location).replace(extension, '');
   }
 };

@@ -8,17 +8,29 @@ const fs = require('fs');
 const waterfall = require('async-waterfall');
 const inject = require('gulp-inject');
 const replacer = require('gulp-html-replace');
+const path = require('path');
 /**
  * @Module moblet module
  */
+
 module.exports = class Project {
   /**
    * Class constructor
    * @param {options} options of develop object
    * @param {module} module object
    */
+
+   /**
+    * Options
+    * - index {string} path to index.html file;
+    * - public {string} public folder of Project, default: folder from index path;
+    * @param {module} module object
+    */
+
+
   constructor(options, modules) {
     this.options = options;
+    this.options.public = options.public || this.getFolder();
     this.modules = modules || options.modules;
   }
   /**
@@ -56,7 +68,7 @@ module.exports = class Project {
     }
 
     // if target is web
-    const constantFile = `${this.options.www}constants.js`;
+    const constantFile = `${this.options.public}constants.js`;
 
 
     fs.writeFile(constantFile, templateJS, (err) => {
@@ -73,7 +85,7 @@ module.exports = class Project {
         gulp.src(this.options.index)
         .pipe(inject(gulp.src(constantFile, { read: false }), injectOptions))
         .pipe(replacer({ constants: templateHTML }, { keepBlockTags: true }))
-        .pipe(gulp.dest(this.options.www))
+        .pipe(gulp.dest(this.options.public))
         .on('end', () => {
           deferred.resolve({ error: false, message: 'Success creating and injecting constants file' });
         });
@@ -94,7 +106,7 @@ module.exports = class Project {
     const modulesFinalSourcers = [];
     for (const module of this.modules) {
       const absolutPath = `${module.destination}${module.name}.bundle.js`;
-      // absolutPath = absolutPath.replace(options.www, './');
+      // absolutPath = absolutPath.replace(options.public, './');
       modulesFinalSourcers.push(absolutPath);
     }
     // if mobile put a / in front o urls
@@ -134,7 +146,7 @@ module.exports = class Project {
       },
     }))
     // .pipe(inject(gulp.src(bowerFiles(), { read: false }), { relative: true }))
-    .pipe(gulp.dest(options.www));
+    .pipe(gulp.dest(options.public));
 
     target.on('error', () => {
       deferred.resolve({ error: true, message: 'Error inject bower components' });
@@ -165,10 +177,27 @@ module.exports = class Project {
     }
     // executing all builders
     waterfall(builders, () => {
-      deferred.resolve({ error: false, message: `Success building Modules of ${this.options.name}` });
+      deferred.resolve({ error: false, message: 'Success building Modules of project' });
     });
     // return promise
     return deferred.promise;
+  }
+  /**
+   * Runs a watch in all modules
+   */
+  dev(callback) {
+    // builder pipe
+    const builders = [];
+    // add a build pipe for each module
+    for (const mod of this.modules) {
+      builders.push((_callback) => {
+        mod.dev({ debug: true, index: this.options.index }, _callback);
+      });
+    }
+    // executing all builders
+    waterfall(builders, (build) => {
+      callback(build);
+    });
   }
   /**
    * Runs the karma test of module
@@ -177,7 +206,7 @@ module.exports = class Project {
     // create a promise
     const deferred = q.defer();
     // loads conf from module directory
-    const config = `${this.options.folder}/karma.conf.js`;
+    const config = `${this.options.karma}`;
     // runs karma service
     new karma.Server({
       configFile: config,
@@ -194,4 +223,10 @@ module.exports = class Project {
 
     return deferred.promise;
   }
+
+  // return module folder directory
+  getFolder() {
+    return `${path.dirname(this.options.index)}/`;
+  }
+
 };
