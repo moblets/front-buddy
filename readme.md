@@ -3,21 +3,21 @@
 
 No matter the structure of your project, front-buddy will help you!
 
-Show to the front-buddy what is your initial js file is, and it will build, inject css, inject less, inject html, precompile ec6 into ec5 and create a bundle file with all into it.
+Show to front-buddy what is your initial js file, and it will build, inject css, inject less, inject html, precompile ec6 into ec5 and create a bundle file with all into it.
 
-Show the front-buddy your index.html file, and it will compile all your modules, inject bower, all modules compiled prepare it to production!
+Show the front-buddy your index.html file, and it will compile all your modules, inject bower and all modules compiled to prepare it for production!
 
-Forget about complicate gulp files! front-buddy is browserify, babel, uglify, wiredep and gulp inject in only one module!
+Forget about complicated gulp files! Front-buddy is browserify, babel, uglify, wiredep and gulp-inject in only one module!
 
 ### Install
 ```
-  $ npm i -s front-buddy
+$ npm i -s front-buddy
 ```
 
 ### Structure
 
 #### Module
-is a js file with all your code on it, you give us your options object, and we cam build or watch it for changes
+is a js file with all your code on it, you give us your options object, and we can build or watch it for changes
 
 > you can user in your file, cummonjs requires of html files, css and less files, js files, you can also use in your js files module.exports to import it in your module file.  
 
