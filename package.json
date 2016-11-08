@@ -1,6 +1,6 @@
 {
   "name": "front-buddy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a front end bundler all in one build tool",
   "main": "front-buddy.js",
   "author": "Leonardo @leualemax Ferreira <leualemax@gmail.com>",

@@ -39,17 +39,17 @@ app.directive('myDirective', function() {
 
 ```
 
->  in your gulp file you import frontBuddy and use it to build your module file
+>  in your gulp file you import Buddy and use it to build your module file
 
 
 ```javascript
 // gulpfile.js
 const gulp = require('gulp');
-const frontBuddy = require('front-buddy');
+const Buddy = require('front-buddy');
 
-const myModule = new frontBuddy.Module({
-  location: "myJsFileLocation.js",
-  destination: "myDestinationFolder/www/bundles",
+const myModule = new Buddy.Module({
+  location: "./folder/to/myModule.js",
+  destination: "./folder/to/www/bundles/",
 });
   
 gulp.task('build', () => {
@@ -63,7 +63,7 @@ gulp.task('build', () => {
 
 #### Project
 is a collection o modules, and a index.html.
-> in your html file the import tags should exists
+> in your html file the import tags should exists to run inject method
 
 ```html
 <!DOCTYPE html>
@@ -87,38 +87,18 @@ is a collection o modules, and a index.html.
 
 
 ```javascript
-// myJsFileLocation.js
-const angular = require('angular');
-require('./style.less');
-const myTemplate = require('./template.html');
-
-var app = angular.module("myApp");
-app.directive('myDirective', function() {
-  return {
-    template: myTemplate,
-    controller: function(){
-    
-    }
-  }
-});
-
-```
-
->  in your gulp file you import frontBuddy and use it to build your module and project.
-
-
-```javascript
 // gulpfile.js
 const gulp = require('gulp');
-const frontBuddy = require('front-buddy');
+const Buddy = require('front-buddy');
 
-const myModule = new frontBuddy.Module({
-  location: "myJsFileLocation.js",
-  destination: "myDestinationFolder/www/bundles",
+
+const myModule = new Buddy.Module({
+  location: "./folder/to/myModule.js",
+  destination: "./folder/to/www/bundles/",
 });
-
-const myProject = new frontBuddy.Project({
-  index: "pathToMy/Index.html",
+  
+const myProject = new Buddy.Project({
+  index: "./folder/to/Index.html",
   modules: [myModule],
 });
   
