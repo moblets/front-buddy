@@ -39,15 +39,15 @@ app.directive('myDirective', function() {
 
 ```
 
->  in your gulp file you import frontBoddy and use it to build your module file
+>  in your gulp file you import frontBuddy and use it to build your module file
 
 
 ```javascript
 // gulpfile.js
 const gulp = require('gulp');
-const frontBoddy = require('front-buddy');
+const frontBuddy = require('front-buddy');
 
-const myModule = new frontBoddy.Module({
+const myModule = new frontBuddy.Module({
   location: "myJsFileLocation.js",
   destination: "myDestinationFolder/www/bundles",
 });
@@ -104,20 +104,20 @@ app.directive('myDirective', function() {
 
 ```
 
->  in your gulp file you import frontBoddy and use it to build your module and project.
+>  in your gulp file you import frontBuddy and use it to build your module and project.
 
 
 ```javascript
 // gulpfile.js
 const gulp = require('gulp');
-const frontBoddy = require('front-buddy');
+const frontBuddy = require('front-buddy');
 
-const myModule = new frontBoddy.Module({
+const myModule = new frontBuddy.Module({
   location: "myJsFileLocation.js",
   destination: "myDestinationFolder/www/bundles",
 });
 
-const myProject = new frontBoddy.Project({
+const myProject = new frontBuddy.Project({
   index: "pathToMy/Index.html",
   modules: [myModule],
 });
