@@ -2,13 +2,19 @@
 
 > A frontend build automator tool
 
-No matter the structure of your project, front-buddy will help you!
+[![npm](https://img.shields.io/npm/v/front-buddy.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/front-buddy)
+[![npm](https://img.shields.io/npm/dt/front-buddy.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/front-buddy)
+[![stars](https://img.shields.io/github/stars/moblets/front-buddy.svg?maxAge=2592000&style=flat-square)](https://github.com/moblets/front-buddy)
+[![GitHub forks](https://img.shields.io/github/forks/moblets/front-buddy.svg?maxAge=2592000&style=flat-square)](https://github.com/moblets/front-buddy/network)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?maxAge=2592000&style=flat-square)](https://github.com/moblets/m-validate#license)
 
-Show to front-buddy what is your initial js file, and it will build, inject css, inject less, inject html, precompile ec6 into ec5 and create a bundle file with all into it.
+No matter the structure of your project, ***front buddy*** will help you!
 
-Show the front-buddy your index.html file, and it will compile all your modules, inject bower and all modules compiled to prepare it for production!
+Show to ***front buddy*** what is your initial js file, and it will build, inject css, inject less, inject html, precompile ec6 into ec5 and create a bundle file with all into it.
 
-Forget about complicated gulp files! Front-buddy is browserify, babel, uglify, wiredep and gulp-inject in only one module!
+Show the ***front buddy*** your index.html file, and it will compile all your modules, inject bower and all modules compiled to prepare it for production!
+
+Forget about complicated gulp files! ***front buddy*** is browserify, babel, uglify, wiredep and gulp-inject in a single module!
 
 ### Install
 ```
@@ -18,9 +24,9 @@ $ npm i -s front-buddy
 ### Structure
 
 #### Module
-is a js file with all your code on it, you give us your options object, and we can build or watch it for changes
+Module is a JavaScript file with all your code. Pass the options object to front buddy, and it will build your module build or watch it for changes.
 
-> you can user in your file, cummonjs requires of html files, css and less files, js files, you can also use in your js files module.exports to import it in your module file.  
+> ***front buddy*** will inject all files from you commonjs requires, including **HTML files**, **CSS and Less** files and **JavaScript** files into the resulting bundle. You can also use it in your JavaScript's module.exports to import it in your module file.
 
 ```javascript
 // myJsFileLocation.js
@@ -40,7 +46,7 @@ app.directive('myDirective', function() {
 
 ```
 
->  in your gulp file you import Buddy and use it to build your module file
+>  in your gulp file you import ***front buddy*** and use it to build your module file
 
 
 ```javascript
@@ -58,13 +64,12 @@ gulp.task('build', () => {
     console.log(value.message);
   });
 });
-
 ```
 
-
 #### Project
-is a collection o modules, and a index.html.
-> in your html file the import tags should exists to run inject method
+Project is a collection of Modules, and an initial HTML file.
+
+> In your html file, insert the needed *import tags* that will be used to inject the content.
 
 ```html
 <!DOCTYPE html>
@@ -84,7 +89,7 @@ is a collection o modules, and a index.html.
 </html>
 
 ```
-> the bower:css, bower:js and bundles:js are the tags that front-buddy will fill with bower injections and modules bundles imports
+> The tags **bower:css**, **bower:js** and **bundles:js** will be filled by ***front buddy*** with the bower injections and bundle modules imports.
 
 
 ```javascript
